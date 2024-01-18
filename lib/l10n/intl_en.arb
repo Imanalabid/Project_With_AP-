@@ -20,5 +20,8 @@
     "repots": "Repots",
     "support": "Support",
     "about_us": "About Us",
-    "log_out": "Log Out"
+    "log_out": "Log Out",
+    "search": "Search ",
+    "recommended_lessons":"Recommended Lessons"
+
 }

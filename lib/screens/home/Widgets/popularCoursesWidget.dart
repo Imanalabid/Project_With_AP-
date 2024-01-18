@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../models/FeaturedCoursesmodel.dart';
 import '../../../../services/get_FeaturedCourses.dart';
 
+import '../../Course/newCoursesPage.dart';
 import 'Pcard.dart';
 
 class PopularCor extends StatelessWidget {
@@ -19,8 +22,14 @@ class PopularCor extends StatelessWidget {
               scrollDirection: Axis.vertical,
               itemCount: pcategory.length,
               itemBuilder: (context, index) {
-                return PCont(
-                  pcategory: pcategory[index],
+                return GestureDetector(
+                  onTap: (){
+                    Get.toNamed('/NCoursesPage');
+
+                  },
+                  child: PCont(
+                    pcategory: pcategory[index],
+                  ),
                 );
               },
             );

@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 
-import 'package:Osus/config/Config.dart';
+import 'package:Taallam/config/Config.dart';
+
+import '../home/home_page.dart';
 
 class UserInfo extends StatelessWidget {
   const UserInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
       body: Column(
         children: [
           SizedBox(
@@ -19,9 +25,12 @@ class UserInfo extends StatelessWidget {
             children: [
               InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, '/profile');
+                    Get.toNamed('/profile');
                   },
-                  child: Icon(Icons.arrow_back_ios_new_sharp,color: AppColors.Icon1Color,)),
+                  child: Icon(
+                    Icons.arrow_back_ios_new_sharp,
+                    color: AppColors.Icon1Color,
+                  )),
             ],
           ),
           Container(
@@ -43,7 +52,7 @@ class UserInfo extends StatelessWidget {
               children: [
                 Text('Name',
                     style: TextStyle(
-                        fontFamily: 'Manrope',
+                        fontFamily: isArabic() ? 'Cairo' : 'aloevera',
                         fontSize: 15.0,
                         color: AppColors.secoundfontColor,
                         fontWeight: FontWeight.bold)),
@@ -61,14 +70,17 @@ class UserInfo extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.only(right: 7, left: 12),
-                  child: Icon(Icons.person_outline,
-                      size: 20, color: AppColors.Icon1Color,),
+                  child: Icon(
+                    Icons.person_outline,
+                    size: 20,
+                    color: AppColors.Icon1Color,
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 0),
                   child: Text(' Name',
                       style: TextStyle(
-                          fontFamily: 'Manrope',
+                          fontFamily: isArabic() ? 'Cairo' : 'aloevera',
                           fontSize: 15.0,
                           color: AppColors.smalltextfontColor,
                           fontWeight: FontWeight.bold)),
@@ -86,7 +98,7 @@ class UserInfo extends StatelessWidget {
               children: [
                 Text('Email',
                     style: TextStyle(
-                        fontFamily: 'Manrope',
+                        fontFamily: isArabic() ? 'Cairo' : 'aloevera',
                         fontSize: 15.0,
                         color: AppColors.mainfontColor,
                         fontWeight: FontWeight.bold)),
@@ -104,15 +116,17 @@ class UserInfo extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.only(right: 7, left: 12),
-                  child:
-                      Icon(Icons.mail, size: 20,     color: AppColors.Icon1Color,
-                      ),
+                  child: Icon(
+                    Icons.mail,
+                    size: 20,
+                    color: AppColors.Icon1Color,
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 0),
                   child: Text('test@gmail.com',
                       style: TextStyle(
-                          fontFamily: 'Manrope',
+                          fontFamily: isArabic() ? 'Cairo' : 'aloevera',
                           fontSize: 15.0,
                           color: AppColors.smalltextfontColor,
                           fontWeight: FontWeight.bold)),
@@ -130,7 +144,7 @@ class UserInfo extends StatelessWidget {
               children: [
                 Text('Phone number',
                     style: TextStyle(
-                        fontFamily: 'Manrope',
+                        fontFamily: isArabic() ? 'Cairo' : 'aloevera',
                         fontSize: 15.0,
                         color: AppColors.mainfontColor,
                         fontWeight: FontWeight.bold)),
@@ -148,17 +162,19 @@ class UserInfo extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.only(right: 7, left: 12),
-                  child:
-                      Icon(Icons.phone, size: 20, color: AppColors.Icon1Color,),
+                  child: Icon(
+                    Icons.phone,
+                    size: 20,
+                    color: AppColors.Icon1Color,
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 0),
                   child: Text('90555555555+',
                       style: TextStyle(
-                          fontFamily: 'Manrope',
+                          fontFamily: isArabic() ? 'Cairo' : 'aloevera',
                           fontSize: 15.0,
                           color: AppColors.smalltextfontColor,
-
                           fontWeight: FontWeight.bold)),
                 ),
               ],

@@ -1,8 +1,11 @@
+import 'package:Taallam/models/recent_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../config/Config.dart';
 import '../../../../models/FeaturedCoursesmodel.dart';
+import '../../../Course/CoursesDetails/widgets/dropdown.dart';
+import '../../home_page.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({
@@ -13,73 +16,77 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     String imageUrl = fcategory.image;
     if (!imageUrl.startsWith('http') && !imageUrl.startsWith('https')) {
-      imageUrl = 'https://osus.academy/uploads/$imageUrl';
+      imageUrl = '${ApiVariables.imageConfig}/$imageUrl';
       print(imageUrl);
     }
 
-    return Container(
-      margin: EdgeInsets.only(left: 10.w, bottom: 10.h),
-      height: 190.h,
-      width: 160.w,
-      decoration: BoxDecoration(
-        color: AppColors.containerColor,
-        borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: Colors.grey.shade300),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8.r),
-            child: Image.network(
-              imageUrl,
-              width: 160.w,
-              height: 80.h,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                print('Error loading image: $error');
-                print('Error loading image: $imageUrl');
-
-                return Container();
-              },
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DropdownPage(
+              courseID: fcategory.id,
+              video: '${ApiVariables.VideoConfig}/170170102445494808.mp4',
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.015,
-          ),
-          Padding(
-            padding: EdgeInsets.only(right: 10.w, left: 10.w),
-            child: Text(fcategory.title,
-                style: TextStyle(
-                  color: AppColors.secoundfontColor,                  fontFamily: 'Manrope',
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w600,
-                )),
-          ),
-          Padding(
-            padding: EdgeInsets.only(right: 10.w, left: 10.w),
-            child: SingleChildScrollView(
-              child: Text(fcategory.short_details,
-                  style: TextStyle(
-                    color: AppColors.smalltextfontColor,
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(left: 20.w, bottom: 10.h),
+        height: 130.h,
+        width: 145.w,
+        decoration: BoxDecoration(
+          color: theme.cardColor.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(8.r),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8.r),
+              child: Image.network(
+                imageUrl,
+                width: 160.w,
+                height: 80.h,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  print('Error loading image: $error');
+                  print('Error loading image: $imageUrl');
 
-                    fontFamily: 'Manrope',
-                    fontSize: 9.sp,
+                  return Container();
+                },
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.015,
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 10.w, left: 10.w),
+              child: Text(fcategory.name,
+                  style: theme.textTheme.bodyText1?.copyWith(
+                    fontFamily: isArabic() ? 'Cairo' : 'aloevera',
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.w600,
                   )),
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.only(right: 10.w, left: 10.w),
+              child: SingleChildScrollView(
+                child: Text(fcategory.shortDetails,
+                    style: theme.textTheme.bodyText2?.copyWith(
+                      fontFamily: isArabic() ? 'Cairo' : 'aloevera',
+                      fontSize: 9.sp,
+                      fontWeight: FontWeight.w600,
+                    )),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

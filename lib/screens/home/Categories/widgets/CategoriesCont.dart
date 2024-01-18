@@ -1,7 +1,9 @@
+import 'package:Taallam/screens/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../config/Config.dart';
+import '../../../../main.dart';
 import '../../../../models/Categorymodel.dart';
 
 class Cont extends StatelessWidget {
@@ -10,9 +12,11 @@ class Cont extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     String imageUrl = category.image;
     if (!imageUrl.startsWith('http') && !imageUrl.startsWith('https')) {
-      imageUrl = 'https://osus.academy/$imageUrl';
+      imageUrl = '${ApiVariables.BASE_URL}/$imageUrl';
       print(imageUrl);
     }
 
@@ -26,7 +30,6 @@ class Cont extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(color: Colors.grey.shade300),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.r),
@@ -40,7 +43,7 @@ class Cont extends StatelessWidget {
                   return Container(
                     color: AppColors.containerColor,
                     child: Image.asset(
-                      'assets/img/OSUSlogo.png', // Replace with the path to your default image asset
+                      'assets/img/Taallamlogo.png', // Replace with the path to your default image asset
                       width: 140.w,
                       height: 75.h,
                       fit: BoxFit.cover,
@@ -50,7 +53,6 @@ class Cont extends StatelessWidget {
               ),
             ),
           ),
-
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.02,
           ),
@@ -60,12 +62,11 @@ class Cont extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.03,
               ),
               Text(
-                category.en_name,
-                style: TextStyle(
-                  color: AppColors.mainfontColor,
-                  fontFamily: 'Manrope',
+                isArabic() ? category.ar_name : category.en_name,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  fontFamily: isArabic() ? 'Cairo' : 'aloevera',
                   fontWeight: FontWeight.w400,
-                  fontSize: 14.sp,
+                  fontSize: 16.sp,
                 ),
               ),
             ],
@@ -73,17 +74,8 @@ class Cont extends StatelessWidget {
         ],
       ),
       decoration: BoxDecoration(
-        color: AppColors.containerColor,
+        color: theme.cardColor.withOpacity(0.2),
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: Colors.grey.shade300),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: Offset(0, 3),
-          ),
-        ],
       ),
     );
   }

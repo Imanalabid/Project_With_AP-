@@ -1,24 +1,27 @@
-import 'package:Osus/screens/home/Coursespage.dart';
+import 'package:Taallam/screens/home/Coursespage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../config/Config.dart';
+import '../../controller/homescreenController.dart';
 import '../../generated/l10n.dart';
 import '../../models/CategoryCorModel.dart';
-import 'package:Osus/models/CategoryCorModel.dart' as CategoryCor;
-import 'package:Osus/models/lessonModel.dart' as Lesson;
+import 'package:Taallam/models/CategoryCorModel.dart' as CategoryCor;
+import 'package:Taallam/models/lessonModel.dart' as Lesson;
 import '../Course/CoursePage.dart';
+import '../Course/CoursesDetails/widgets/dropdown.dart';
+import '../Course/newCoursesPage.dart';
+import '../profile/search.dart';
 import 'home_page.dart';
 
+// صفحة الكورسسسسات
 class SecondScreen extends StatefulWidget {
-
-  // final String item;
-  // final List<CategoryCorModel> categoryCorModelList; // Change this line
-  // final int containerIndex;
-  //
-  // SecondScreen({required this.categoryCorModelList, required this.item, required this.containerIndex});
   final List<CourseModel> categoryCorModel;
-  SecondScreen({Key? key, required this.categoryCorModel, }) : super(key: key);
+  SecondScreen({
+    Key? key,
+    required this.categoryCorModel,
+  }) : super(key: key);
   @override
   State<SecondScreen> createState() => _SecondScreenState();
 }
@@ -26,100 +29,110 @@ class SecondScreen extends StatefulWidget {
 class _SecondScreenState extends State<SecondScreen> {
   @override
   Widget build(BuildContext context) {
+    print(
+        'Category Cor Model List Length: ${widget.categoryCorModel.first.details}');
+    final ThemeData theme = Theme.of(context);
 
-
-   print('Category Cor Model List Length: ${widget.categoryCorModel.first.details}');
+    String imageUrl = widget.categoryCorModel.first.image;
+    if (!imageUrl.startsWith('http') && !imageUrl.startsWith('https')) {
+      imageUrl = '${ApiVariables.imageConfig}/$imageUrl';
+      print(imageUrl);
+    }
 
     return Scaffold(
-
-      body: Center(
+      backgroundColor: theme.backgroundColor,
+      body: Padding(
+        padding: EdgeInsets.only(top: 40.h, right: 10.w, left: 10.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Column(
-            //   children: [
-            //     Text(categoryCorModelList.length),
-            //     Text(categoryCorModelList.title),
-            //     Text('${categoryCorModelList.details}'),
-            //     Text('${categoryCorModelList.id}'),
-            //     // Text(categoryModel),
-            //   ],
-            // ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.03,
-            ),
-
             Padding(
-              padding: EdgeInsets.only(right: 10.w, left: 10.w),
+              padding: EdgeInsets.only(
+                right: 15.w,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/home');
+                        Get.toNamed('/home');
                       },
-                      child: Icon(Icons.arrow_back_ios,color: AppColors.Icon1Color,)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      LogoImage.logoImage
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 40.h,
-              width: 325.w,
-              child: Padding(
-                padding:  EdgeInsets.only(
-                    left: isArabic()? 20.w:10.w,
-                    right: isArabic()?10.w:10.w
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.search,
-                      color: AppColors.Icon1Color,
-                      size: 28,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.005,
-                    ),
-                    Text(
-                      S.of(context).what_you_want_to_learn,
-                      style: TextStyle(
-                          color: AppColors.smalltextfontColor,
-                          fontFamily: 'Manrope',
-                          fontSize: 12.sp),
-                    ),
-                    SizedBox(
-                        width:isArabic()?MediaQuery.of(context).size.width*0.38.w:MediaQuery.of(context).size.width*0.33
-                    ),
-
-                  ],
-                ),
-              ),
-              decoration: BoxDecoration(
-                color: AppColors.containerColor,
-                borderRadius: BorderRadius.circular(8.r),
-                border: Border.all(color: Colors.grey.shade300),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: Offset(0, 3),
-                  ),
+                      child: Container(
+                        height: 40.h,
+                        width: 40.w,
+                        decoration: BoxDecoration(
+                          color: theme.cardColor.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(10.r),
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.arrow_back_ios_outlined,
+                          ),
+                        ),
+                      )),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15.w),
+                    child: Container(height: 70.h, child: LogoImage.logoImage),
+                  )
                 ],
               ),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.03,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 40.h,
+                  width: 325.w,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 5.w, right: 5.w),
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SearchScreen(
+                                        recentCourses: [],
+                                      )),
+                            );
+                          },
+                          child: Icon(
+                            Icons.search,
+                            size: 28,
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.005,
+                        ),
+                        Text(
+                          S.of(context).what_you_want_to_learn,
+                          style: theme.textTheme.bodyText1?.copyWith(
+                              fontFamily: isArabic() ? 'Cairo' : 'aloevera',
+                              fontSize: 12.sp),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.35,
+                        ),
+                      ],
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: theme.cardColor.withOpacity(0.4),
+                    borderRadius: BorderRadius.circular(8.r),
+                    border: Border.all(color: Colors.grey.shade300),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.03,
+            ),
 
-
-           // Text('Container Index: ${widget.containerIndex}'), // Display the container index
+            // Text('Container Index: ${widget.containerIndex}'), // Display the container index
 
             // Container(
             //   height: 50,
@@ -144,114 +157,80 @@ class _SecondScreenState extends State<SecondScreen> {
 
                   // String imageUrl = widget.categoryCorModel[index].image;
                   // if (!imageUrl.startsWith('http') && !imageUrl.startsWith('https')) {
-                  //   imageUrl = 'https://osus.academy/upload/$imageUrl';
+
                   //   print(imageUrl);
                   // }
 
                   return GestureDetector(
                     onTap: () {
-                      // Navigate to the CoursePage when tapped
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CoursesPage(containerIndex: index, lessonModel:[]),
+                          builder: (context) => DropdownPage(
+                            courseID: widget.categoryCorModel[index].id,
+                            video:
+                                '${ApiVariables.VideoConfig}/170170102445494808.mp4',
+                          ),
                         ),
                       );
                     },
                     child: Container(
                       margin: EdgeInsets.all(6),
-                      child: Padding(
-                        padding:  EdgeInsets.only(right: 5.w, left: 15.w),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Your existing container content...
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.02,
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.01,
-                                ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(15.r),
+                            child: Image.network(
+                              imageUrl,
+                              width: 180.w,
+                              height: 80.h,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                print('Error loading image: $error');
+                                print('Error loading image: $imageUrl');
 
-                                Flexible(
+                                return Container();
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.01,
+                              ),
+                              Flexible(
+                                child: Center(
                                   child: Text(
-                                    widget.categoryCorModel[index].title,
-                                    style: TextStyle(
-                                      color: AppColors.secoundfontColor,
-                                      fontFamily: 'Manrope',
+                                    widget.categoryCorModel[index].name,
+                                    style: theme.textTheme.bodyText1?.copyWith(
+                                      fontFamily:
+                                          isArabic() ? 'Cairo' : 'aloevera',
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 14.sp,
+                                      fontSize: 16.sp,
                                     ),
-                                    overflow: TextOverflow.ellipsis, // Handle overflow with ellipsis
-                                    maxLines: 2, // Set the maximum number of lines
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
                                   ),
                                 ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-
-                                  Container(
-
-                                    child: ClipRRect(
-
-                                      child: Image.asset(
-                                        'assets/img/OSUSlogo.png'
-                                        , // Replace with the path to your default image asset
-                                        width: 140.w,
-                                        height: 75.h,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-
-
-                                //
-                                // Flexible(
-                                //   child: Image.network(
-                                //     widget.categoryCorModel[index].image,
-                                //
-                                //   ),
-                                // ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.02,
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.03,
-                                ),
-
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.containerColor,
-                        borderRadius: BorderRadius.circular(8.r),
-                        border: Border.all(color: Colors.grey.shade300),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: Offset(0, 3),
+                              ),
+                            ],
                           ),
                         ],
+                      ),
+                      decoration: BoxDecoration(
+                        color: theme.cardColor.withOpacity(0.4),
+                        borderRadius: BorderRadius.circular(12.r),
                       ),
                     ),
                   );
                 },
               ),
             ),
-
-
           ],
         ),
       ),

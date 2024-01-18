@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../config/Config.dart';
 import '../../../../models/CategoryCorModel.dart';
@@ -17,16 +18,13 @@ class CategoryCor extends StatefulWidget {
 class _CategoryCorState extends State<CategoryCor> {
   late FeaturedCoursesService getCourses = FeaturedCoursesService();
 
-
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Navigator.pushNamed(context, '/PCourses');
-      },
-      child: Container(
+    final ThemeData theme = Theme.of(context);
 
-        color: AppColors.containerColor,
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
         child: FutureBuilder<List<CategoryModel>>(
           future: CategoryService().getAllCategory(),
           builder: (context, snapshot) {
@@ -41,12 +39,10 @@ class _CategoryCorState extends State<CategoryCor> {
                       // Navigate to the SecondScreen when a container is tapped
                       List<CourseModel> categoryCorModel = await getCourses
                           .getAllCoursesOfCategry(category[index].id);
-                  //    print('this is the category details: name - ${category[index].en_name} id - ${category[index].id}');
+                      //    print('this is the category details: name - ${category[index].en_name} id - ${category[index].id}');
                       _navigateToSecondScreen(context, categoryCorModel);
-
                     },
                     child: Cont(
-
                       category: category[index],
                     ),
                   );
@@ -61,11 +57,13 @@ class _CategoryCorState extends State<CategoryCor> {
     );
   }
 
-  void _navigateToSecondScreen(BuildContext context, List<CourseModel> categoryCorModel) {
+  void _navigateToSecondScreen(
+      BuildContext context, List<CourseModel> categoryCorModel) {
     Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SecondScreen(categoryCorModel: categoryCorModel),)
-    );
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              SecondScreen(categoryCorModel: categoryCorModel),
+        ));
   }
-
 }

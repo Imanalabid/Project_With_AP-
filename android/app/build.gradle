@@ -25,11 +25,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
-def keystoreProperties = new Properties()
-def keystorePropertiesFile = rootProject.file('key.properties')
-if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-}
+   def keystoreProperties = new Properties()
+   def keystorePropertiesFile = rootProject.file('key.properties')
+   if (keystorePropertiesFile.exists()) {
+       keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+   }
 
 android {
     compileSdkVersion flutter.compileSdkVersion
@@ -49,24 +49,26 @@ android {
     }
 
     defaultConfig {
-        applicationId "academy.osus"
-        minSdkVersion flutter.minSdkVersion
+        applicationId "academy.Taallam"
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true  // Move this line inside defaultConfig
     }
-
-    signingConfigs {
-        release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file('C:\\Users\\imana\\project1\\android\\app\\key.jks')
-            storePassword keystoreProperties['storePassword']
-            storeType 'PKCS12'
-        }
-    }
-
-
+   signingConfigs {
+       release {
+           keyAlias keystoreProperties['keyAlias']
+           keyPassword keystoreProperties['keyPassword']
+           storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+           storePassword keystoreProperties['storePassword']
+       }
+   }
+   buildTypes {
+       release {
+           signingConfig signingConfigs.release
+       }
+   }
 
     buildTypes {
         release {
@@ -75,10 +77,12 @@ android {
     }
 }
 
+
 flutter {
     source '../..'
 }
 
 dependencies {
+    implementation 'com.android.support:multidex:2.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

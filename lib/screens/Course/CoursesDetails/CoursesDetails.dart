@@ -7,7 +7,10 @@ class CoursesDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
       body: Column(children: [Text('Colorssssssssssss')]),
     );
   }
@@ -60,7 +63,7 @@ class CoursesDetails extends StatelessWidget {
 //                       height: 90,
 //                       width: 150,
 //                       child: Image.asset(
-//                         "assets/img/OSUSlogo.png",
+//                         "assets/img/Taallamlogo.png",
 //                       )),
 //                 ],
 //               ),

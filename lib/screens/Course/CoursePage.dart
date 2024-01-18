@@ -1,7 +1,10 @@
-import 'package:Osus/models/CategoryCorModel.dart';
+import 'package:Taallam/models/CategoryCorModel.dart';
+import 'package:Taallam/screens/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../models/FeaturedCoursesmodel.dart';
 import 'Widgets/UpWidget.dart';
@@ -13,12 +16,12 @@ class CoursePage extends StatelessWidget {
 
   // Choose one FCModel instance from the list
 
-
-
-
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
       body: Column(
         children: [
           Container(
@@ -29,7 +32,7 @@ class CoursePage extends StatelessWidget {
           Container(
             height: 310.h,
             color: Colors.red,
-            child: Tabbar( ),
+            child: Tabbar(),
           ),
         ],
       ),
@@ -37,20 +40,20 @@ class CoursePage extends StatelessWidget {
   }
 }
 
-
 class CourseWidget extends StatelessWidget {
   const CourseWidget({super.key});
 
-
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
 
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
             image:
-            AssetImage('assets/img/wp.png'), // Replace with your image path
+                AssetImage('assets/img/wp.png'), // Replace with your image path
             fit: BoxFit.cover,
           ),
         ),
@@ -62,12 +65,11 @@ class CourseWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   GestureDetector(
-                    onTap: (){
-                      Navigator.pushNamed(context, '/FeaturedCourses');
+                    onTap: () {
+                      Get.toNamed('/FeaturedCourses');
                     },
                     child: Icon(
                       Icons.arrow_back_ios,
-                      color: Colors.white,
                     ),
                   ),
                   SizedBox(
@@ -77,7 +79,7 @@ class CourseWidget extends StatelessWidget {
                     'Back',
                     style: TextStyle(
                         color: Colors.white,
-                        fontFamily: 'Manrope',
+                        fontFamily: isArabic() ? 'Cairo' : 'aloevera',
                         fontSize: 18.sp),
                   )
                 ],
@@ -95,7 +97,7 @@ class CourseWidget extends StatelessWidget {
                         'WordPress development',
                         style: TextStyle(
                             color: Colors.white,
-                            fontFamily: 'Manrope',
+                            fontFamily: isArabic() ? 'Cairo' : 'aloevera',
                             fontSize: 18.sp),
                       ),
                       SizedBox(
@@ -105,7 +107,7 @@ class CourseWidget extends StatelessWidget {
                         'bigineer guid                         ',
                         style: TextStyle(
                             color: Colors.white,
-                            fontFamily: 'Manrope',
+                            fontFamily: isArabic() ? 'Cairo' : 'aloevera',
                             fontSize: 18.sp),
                       ),
                       SizedBox(
@@ -115,7 +117,7 @@ class CourseWidget extends StatelessWidget {
                         'Jon Smith                         ',
                         style: TextStyle(
                             color: Colors.white,
-                            fontFamily: 'Manrope',
+                            fontFamily: isArabic() ? 'Cairo' : 'aloevera',
                             fontSize: 12.sp),
                       ),
                       SizedBox(
@@ -152,7 +154,7 @@ class CourseWidget extends StatelessWidget {
                         '(4.5) based on 20 review',
                         style: TextStyle(
                             color: Colors.white,
-                            fontFamily: 'Manrope',
+                            fontFamily: isArabic() ? 'Cairo' : 'aloevera',
                             fontSize: 12.sp),
                       ),
                       SizedBox(
@@ -171,7 +173,7 @@ class CourseWidget extends StatelessWidget {
                               children: [
                                 SizedBox(
                                   width:
-                                  MediaQuery.of(context).size.width * 0.02,
+                                      MediaQuery.of(context).size.width * 0.02,
                                 ),
                                 Icon(Icons.alarm_rounded,
                                     color: Colors.purple.shade900),
@@ -179,7 +181,8 @@ class CourseWidget extends StatelessWidget {
                                   ' 23 Hours',
                                   style: TextStyle(
                                       color: Colors.purple.shade900,
-                                      fontFamily: 'Manrope',
+                                      fontFamily:
+                                          isArabic() ? 'Cairo' : 'aloevera',
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12.sp),
                                 ),
@@ -199,7 +202,7 @@ class CourseWidget extends StatelessWidget {
                               children: [
                                 SizedBox(
                                   width:
-                                  MediaQuery.of(context).size.width * 0.02,
+                                      MediaQuery.of(context).size.width * 0.02,
                                 ),
                                 Icon(Icons.alarm_rounded,
                                     color: Colors.purple.shade900),
@@ -207,7 +210,8 @@ class CourseWidget extends StatelessWidget {
                                   ' 23 Hours',
                                   style: TextStyle(
                                       color: Colors.purple.shade900,
-                                      fontFamily: 'Manrope',
+                                      fontFamily:
+                                          isArabic() ? 'Cairo' : 'aloevera',
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12.sp),
                                 ),
@@ -227,7 +231,7 @@ class CourseWidget extends StatelessWidget {
                               children: [
                                 SizedBox(
                                   width:
-                                  MediaQuery.of(context).size.width * 0.02,
+                                      MediaQuery.of(context).size.width * 0.02,
                                 ),
                                 Icon(Icons.alarm_rounded,
                                     color: Colors.purple.shade900),
@@ -235,7 +239,8 @@ class CourseWidget extends StatelessWidget {
                                   ' 23 Hours',
                                   style: TextStyle(
                                       color: Colors.purple.shade900,
-                                      fontFamily: 'Manrope',
+                                      fontFamily:
+                                          isArabic() ? 'Cairo' : 'aloevera',
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12.sp),
                                 ),
@@ -248,7 +253,6 @@ class CourseWidget extends StatelessWidget {
                   )
                 ],
               ),
-
             ],
           ),
         ),
@@ -257,9 +261,10 @@ class CourseWidget extends StatelessWidget {
   }
 }
 
-
 class Tabbar extends StatelessWidget {
-  Tabbar({Key? key,}) : super(key: key);
+  Tabbar({
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -269,41 +274,48 @@ class Tabbar extends StatelessWidget {
           children: [
             TabBar(
               tabs: [
-                Tab( child: Text(
-                  'Description',
-                  style: TextStyle(
-                      color: Colors.blue.shade700,
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w600),
-                ),),
-                Tab( child: Text(
-                  'Review',
-                  style: TextStyle(
-                      color: Colors.blue.shade700,
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w600),
-                ),),
+                Tab(
+                  child: Text(
+                    'Description',
+                    style: TextStyle(
+                        fontFamily: isArabic() ? 'Cairo' : 'aloevera',
+                        color: Colors.blue.shade700,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    'Review',
+                    style: TextStyle(
+                        fontFamily: isArabic() ? 'Cairo' : 'aloevera',
+                        color: Colors.blue.shade700,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
               ],
             ),
             Expanded(
               child: TabBarView(
                 children: [
                   Padding(
-                    padding:  EdgeInsets.only(right: 10.w,left: 10.w,top: 20.h),
+                    padding:
+                        EdgeInsets.only(right: 10.w, left: 10.w, top: 20.h),
                     child: Text(
-                      "هذا الكورس موجه لجميع طلاب الهندسات في مختلف الكليات في أنحاء العالم .. وهو موجه للطلاب الذين يدرسون في الجامعات التركية أو الجامعات التي تدرس باللغة الانكليزية أو الألمانية</p><p dir=\"rtl\">في هذا الكورس سنشرح مادة الديناميك بالتفصيل الممل مروراً بالحركة المستقيمة المنتظمة والحركة المستقيمة المتغيرة بانتظام والحركة الدائرية المنتظمة والحركة الدائرية المتغيرة بانتظام كما سنشرح بالتفصيل الحركة المنحنية</p><p dir=\"rtl\">سنشرح مفاهيم الكيناميتك Kinematik للحركة من حيث شرح المفاهيم الهندسية للحركة وهي الإازحة والسرعة والتسارع والزومن وكيفية اشتقاق العلاققات فيما بينهم</p><p dir=\"rtl\">كما سنتعامل مع المخططات وكيفية رسم الجوانب الهندسية للحركة للإزاحة والسرعة والتسارع</p><p dir=\"rtl\">سنناقش قانون نيوتن الثاني وهو مجموع القوى المؤثرة على جسم تساوي جداء كتلته في تسارعه<br></p><p dir=\"rtl\">سنقوم بحل العديد من المسائل على مماسبق من حيث اشتقاق المسافة والسرعة أو من حيث تكامل السرعة والتسارع أيضاً سنقوم بحل مسائل على رسم المخططات وكيفية الاستفادة منها للح"
-                      , style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: 'Manrope',
-                        fontWeight: FontWeight.w400),),
+                      "هذا الكورس موجه لجميع طلاب الهندسات في مختلف الكليات في أنحاء العالم .. وهو موجه للطلاب الذين يدرسون في الجامعات التركية أو الجامعات التي تدرس باللغة الانكليزية أو الألمانية</p><p dir=\"rtl\">في هذا الكورس سنشرح مادة الديناميك بالتفصيل الممل مروراً بالحركة المستقيمة المنتظمة والحركة المستقيمة المتغيرة بانتظام والحركة الدائرية المنتظمة والحركة الدائرية المتغيرة بانتظام كما سنشرح بالتفصيل الحركة المنحنية</p><p dir=\"rtl\">سنشرح مفاهيم الكيناميتك Kinematik للحركة من حيث شرح المفاهيم الهندسية للحركة وهي الإازحة والسرعة والتسارع والزومن وكيفية اشتقاق العلاققات فيما بينهم</p><p dir=\"rtl\">كما سنتعامل مع المخططات وكيفية رسم الجوانب الهندسية للحركة للإزاحة والسرعة والتسارع</p><p dir=\"rtl\">سنناقش قانون نيوتن الثاني وهو مجموع القوى المؤثرة على جسم تساوي جداء كتلته في تسارعه<br></p><p dir=\"rtl\">سنقوم بحل العديد من المسائل على مماسبق من حيث اشتقاق المسافة والسرعة أو من حيث تكامل السرعة والتسارع أيضاً سنقوم بحل مسائل على رسم المخططات وكيفية الاستفادة منها للح",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12.sp,
+                          fontFamily: isArabic() ? 'Cairo' : 'aloevera',
+                          fontWeight: FontWeight.w400),
+                    ),
                   ),
-
 
                   // Content of Tab 2
                   Container(
-                    // Add your content for Tab 2 here
-                  ),
+                      // Add your content for Tab 2 here
+                      ),
                 ],
               ),
             ),

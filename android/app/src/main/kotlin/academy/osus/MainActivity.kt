@@ -1,4 +1,4 @@
-package academy.osus
+package academy.Taallam
 
 import io.flutter.embedding.android.FlutterActivity
 

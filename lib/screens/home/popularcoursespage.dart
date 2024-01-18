@@ -1,16 +1,22 @@
+import 'package:Taallam/screens/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../config/Config.dart';
+import '../profile/search.dart';
 
 class PCourses extends StatelessWidget {
   const PCourses({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(top: 30.h, right: 15.w, left: 15.w),
@@ -21,52 +27,60 @@ class PCourses extends StatelessWidget {
                 children: [
                   InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, '/home');
+                        Get.toNamed('/home');
                       },
                       child: Icon(
                         Icons.arrow_back_ios,
-                        color: AppColors.Icon1Color,
                       )),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      LogoImage.logoImage
-                    ],
+                    children: [LogoImage.logoImage],
                   ),
                 ],
               ),
-
               Container(
                 height: 38.h,
-                width: 350.w,
+                width: 325.w,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 8.w, right: 8.w),
+                  padding: EdgeInsets.only(left: 5.w, right: 2.w),
                   child: Row(
                     children: [
-                      Icon(
-                        Icons.search,
-                        color: AppColors.Icon1Color,
-                        size: 28,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SearchScreen(
+                                      recentCourses: [],
+                                    )),
+                          );
+                        },
+                        child: Icon(
+                          Icons.search,
+                          size: 28,
+                        ),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.01,
                       ),
                       Text(
                         'What you want to learn ?',
-                        style: TextStyle(
-                            color: AppColors.smalltextfontColor,
-                            fontFamily: 'Manrope',
+                        style: theme.textTheme.bodyText2?.copyWith(
+                            fontFamily: isArabic() ? 'Cairo' : 'aloevera',
                             fontSize: 12.sp),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.35,
                       ),
-                      Icon(Icons.menu_sharp,   color: AppColors.Icon1Color,)
+                      Icon(
+                        Icons.menu_sharp,
+                      )
                     ],
                   ),
                 ),
                 decoration: BoxDecoration(
-                  color: AppColors.containerColor,                  borderRadius: BorderRadius.circular(8.r),
+                  color: AppColors.containerColor,
+                  borderRadius: BorderRadius.circular(8.r),
                   border: Border.all(color: Colors.grey.shade300),
                   boxShadow: [
                     BoxShadow(
@@ -89,7 +103,7 @@ class PCourses extends StatelessWidget {
                     style: TextStyle(
                         color: AppColors.mainfontColor,
                         fontSize: 20.sp,
-                        fontFamily: 'Manrope',
+                        fontFamily: isArabic() ? 'Cairo' : 'aloevera',
                         fontWeight: FontWeight.w400),
                   ),
                   GestureDetector(
@@ -100,7 +114,7 @@ class PCourses extends StatelessWidget {
                           Text('See All',
                               style: TextStyle(
                                 color: Colors.transparent,
-                                fontFamily: 'Manrope',
+                                fontFamily: isArabic() ? 'Cairo' : 'aloevera',
                                 fontWeight: FontWeight.w600,
                               )),
                           Icon(
@@ -117,8 +131,8 @@ class PCourses extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.03,
               ),
               GestureDetector(
-                onTap: (){
-                  Navigator.pushNamed(context, '/CoursePage');
+                onTap: () {
+                  Get.toNamed('/CoursePage');
                 },
                 child: SizedBox(
                   height: 150.h,
